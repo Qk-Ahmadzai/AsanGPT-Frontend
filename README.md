@@ -44,3 +44,52 @@ Below are key JavaScript functions used in the project:
 <script>
     hljs.highlightAll();
 </script>
+
+
+###Send Message Function
+This function handles the sending of messages to the API and displaying the loader.
+
+function sendMessage() {
+    const input = document.querySelector('textarea');
+    const message = input.value.trim();
+
+    if (message) {
+        addMessage('user', message);
+        input.value = '';
+
+        // Show loader, hide send text, and disable button
+        loader.style.display = 'inline-block';
+        sendButtonText.style.display = 'none';
+        sendButton.disabled = true;
+
+        // Send message to the API
+        fetch('http://localhost:1234/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: "lmstudio-ai/gemma-2b-it-GGUF/gemma-2b-it-q8_0.gguf",
+                messages: [
+                    { role: "system", content: "You are a helpful assistant." },
+                    { role: "user", content: message }
+                ]
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const botMessage = data.choices[0].message.content;
+            addTypingEffect('bot', botMessage);
+        })
+        .catch(error => console.error('Error:', error))
+        .finally(() => {
+            // Hide loader, show send text, and enable button
+            loader.style.display = 'none';
+            sendButtonText.style.display = 'inline';
+            sendButton.disabled = false;
+        });
+    }
+}
+
+
+
