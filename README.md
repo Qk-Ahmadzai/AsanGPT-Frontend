@@ -46,7 +46,7 @@ Below are key JavaScript functions used in the project:
 </script>
 ```
 
-###Send Message Function
+#### Send Message Function
 This function handles the sending of messages to the API and displaying the loader.
 
 ```javascript
