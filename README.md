@@ -1,5 +1,3 @@
-# Writing a README.md file without the whole code but including the necessary information
-
 # AsanGPT Interface
 
 This project is a simple chat interface for interacting with the AsanGPT API. The interface allows users to input text, send it to the API, and receive a response. The chat messages are displayed with a typing effect, and code snippets within the messages are syntax-highlighted.
